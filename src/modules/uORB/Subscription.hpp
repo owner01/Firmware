@@ -105,6 +105,8 @@ public:
 	uint8_t		get_instance() const { return _instance; }
 	orb_id_t	get_topic() const { return _meta; }
 
+	DeviceNode	*get_node() { return _node; }
+
 protected:
 
 	bool subscribe();

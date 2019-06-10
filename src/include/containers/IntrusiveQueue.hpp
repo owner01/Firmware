@@ -95,6 +95,32 @@ public:
 		return ret;
 	}
 
+	bool remove(T removeNode)
+	{
+		// base case
+		if (removeNode == _head) {
+			_head = nullptr;
+			return true;
+		}
+
+		for (T node = _head; node != nullptr; node = node->next_intrusive_queue_node()) {
+			// is sibling the node to remove?
+			if (node->next_intrusive_queue_node() == removeNode) {
+				// replace sibling
+				if (node->next_intrusive_queue_node() != nullptr) {
+					node->set_next_intrusive_queue_node(node->next_intrusive_queue_node()->next_intrusive_queue_node());
+
+				} else {
+					node->set_next_intrusive_queue_node(nullptr);
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 private:
 
 	T _head{nullptr};
