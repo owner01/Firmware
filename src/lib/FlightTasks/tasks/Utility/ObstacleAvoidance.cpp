@@ -59,7 +59,7 @@ ObstacleAvoidance::ObstacleAvoidance(ModuleParams *parent) :
 {
 	_desired_waypoint = empty_trajectory_waypoint;
 	_failsafe_position.setNaN();
-	_avoidance_point_valid_hysteresis.set_hysteresis_time_from(false, TIME_BEFORE_FAILSAFE);
+	_avoidance_point_not_valid_hysteresis.set_hysteresis_time_from(false, TIME_BEFORE_FAILSAFE);
 
 }
 
@@ -103,9 +103,9 @@ void ObstacleAvoidance::injectAvoidanceSetpoints(Vector3f &pos_sp, Vector3f &vel
 	const bool avoidance_point_valid =
 		_sub_vehicle_trajectory_waypoint->get().waypoints[vehicle_trajectory_waypoint_s::POINT_0].point_valid == true;
 
-	_avoidance_point_valid_hysteresis.set_state_and_update(!avoidance_point_valid, hrt_absolute_time());
+	_avoidance_point_not_valid_hysteresis.set_state_and_update(!avoidance_point_valid, hrt_absolute_time());
 
-	if (avoidance_data_timeout || _avoidance_point_valid_hysteresis.get_state()) {
+	if (avoidance_data_timeout || _avoidance_point_not_valid_hysteresis.get_state()) {
 		PX4_WARN("Obstacle Avoidance system failed, loitering");
 		_publishVehicleCmdDoLoiter();
 
