@@ -57,7 +57,7 @@ endif
 # in that directory with the target upload.
 
 # explicity set default build target
-all: px4_sitl_default
+all: px4_raspberrypi_native
 
 # define a space character to be able to explicitly find it in strings
 space := $(subst ,, )
@@ -204,7 +204,7 @@ $(CONFIG_TARGETS_DEFAULT):
 all_config_targets: $(ALL_CONFIG_TARGETS)
 all_default_targets: $(CONFIG_TARGETS_DEFAULT)
 
-posix: px4_sitl_default
+posix: px4_raspberrypi_native
 
 # board reorganization deprecation warnings (2018-11-22)
 define deprecation_warning
