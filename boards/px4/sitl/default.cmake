@@ -1,25 +1,26 @@
 
 px4_add_board(
-	PLATFORM posix
 	VENDOR px4
-	MODEL sitl
-	LABEL default
+	MODEL raspberrypi
+	LABEL native
+	PLATFORM posix
 	TESTING
 
 	DRIVERS
 		#barometer # all available barometer drivers
-		#batt_smbus
+		batt_smbus
 		camera_trigger
-		#differential_pressure # all available differential pressure drivers
-		#distance_sensor # all available distance sensor drivers
+		differential_pressure # all available differential pressure drivers
+		distance_sensor # all available distance sensor drivers
 		gps
 		#imu # all available imu drivers
 		#magnetometer # all available magnetometer drivers
 		pwm_out_sim
 		#telemetry # all available telemetry drivers
-		sim/tone_alarm
-		tone_alarm
-		#uavcan
+
+		linux_pwm_out
+		linux_sbus
+		#rpi_rc_in
 
 	MODULES
 		attitude_estimator_q
@@ -41,25 +42,19 @@ px4_add_board(
 		mc_att_control
 		mc_pos_control
 		navigator
-		replay
 		sensors
-		simulator
+		sih
+		#simulator
 		vmount
 		vtol_att_control
 		wind_estimator
 
 	SYSTEMCMDS
-		#bl_update
-		#config
-		#dumpfile
 		dyn
 		esc_calib
-		#hardfault_log
 		led_control
 		mixer
 		motor_ramp
-		#mtd
-		#nshterm
 		param
 		perf
 		pwm
@@ -84,22 +79,3 @@ px4_add_board(
 		rover_steering_control # Rover example app
 		segway
 	)
-
-set(config_sitl_viewer jmavsim CACHE STRING "viewer for sitl")
-set_property(CACHE config_sitl_viewer PROPERTY STRINGS "jmavsim;none")
-
-set(config_sitl_debugger disable CACHE STRING "debugger for sitl")
-set_property(CACHE config_sitl_debugger PROPERTY STRINGS "disable;gdb;lldb")
-
-# If the environment variable 'replay' is defined, we are building with replay
-# support. In this case, we enable the orb publisher rules.
-set(REPLAY_FILE "$ENV{replay}")
-if(REPLAY_FILE)
-	message("Building with uorb publisher rules support")
-	add_definitions(-DORB_USE_PUBLISHER_RULES)
-
-	message("Building without lockstep for replay")
-	set(ENABLE_LOCKSTEP_SCHEDULER no)
-else()
-	set(ENABLE_LOCKSTEP_SCHEDULER yes)
-endif()
