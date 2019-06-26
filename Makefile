@@ -216,11 +216,11 @@ px4fmu-%_default:
 	$(MAKE) $(subst px4fmu,px4_fmu, $@)
 
 posix_sitl_default:
-	$(call deprecation_warning, ${@},px4_sitl_default)
-	$(MAKE) px4_sitl_default
+	$(call deprecation_warning, ${@},px4_raspberrypi_native)
+	$(MAKE) px4_raspberrypi_native
 
 # All targets with just dependencies but no recipe must either be marked as phony (or have the special @: as recipe).
-.PHONY: all posix px4_sitl_default all_config_targets all_default_targets
+.PHONY: all posix px4_raspberrypi_native all_config_targets all_default_targets
 
 # Multi- config targets.
 eagle_default: atlflight_eagle_default atlflight_eagle_qurt-default
