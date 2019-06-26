@@ -20,7 +20,7 @@ px4_add_board(
 
 		linux_pwm_out
 		linux_sbus
-		rpi_rc_in
+		#rpi_rc_in
 
 	MODULES
 		attitude_estimator_q
