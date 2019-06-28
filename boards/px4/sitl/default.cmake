@@ -17,7 +17,7 @@ px4_add_board(
 		#magnetometer # all available magnetometer drivers
 		pwm_out_sim
 		#telemetry # all available telemetry drivers
-
+		testerdetest
 		linux_pwm_out
 		linux_sbus
 		#rpi_rc_in
